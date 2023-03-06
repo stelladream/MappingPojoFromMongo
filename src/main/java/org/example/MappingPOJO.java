@@ -17,12 +17,10 @@ import java.util.Date;
 import java.util.List;
 
 import static com.mongodb.client.model.Filters.eq;
-import static java.util.Collections.singletonList;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
 import org.bson.types.ObjectId;
-import org.example.model.*;
 import org.example.model.users.*;
 
 
@@ -47,8 +45,6 @@ public class MappingPOJO {
             MongoCollection<User> users = db.getCollection("test_users", User.class);
 
             User newUser = new User();
-            newUser.setUsername("nykim");
-            newUser.setEmail("nykim@hansung.ac.kr");
 
             ChattingChannels chattingChannels = new ChattingChannels();
             chattingChannels.setNextGroupChannelIndex(1);
@@ -80,7 +76,7 @@ public class MappingPOJO {
             newUser.setFirstname("in");
             newUser.setLastname("seo");
             newUser.setPassword("inseo-pw");
-            newUser.setEmail("in.seo@gmai.com");
+            newUser.setEmail("in.seo@gmail.com");
 
             Coordinate coordinate = new Coordinate();
             coordinate.setLat(37.1234);
@@ -157,12 +153,29 @@ public class MappingPOJO {
             newUser.setIncoming_landlord_listing(new ArrayList<IncomingLandlordListing>());
             newUser.getIncoming_landlord_listing().add(incomingLandlordListing);
 
+
+            newUser.setSalt("c8a0d3223f03dbd4ac6ad8d21441246076cce8986ae9e485c2c91b6a358a449d");
+            newUser.setHash("94663274d9b60d942c9820b61dd72a0c9089ea2456b6af57ae49658eac314ea338131");
+            newUser.setVersion(6464);
+            newUser.setProfile_picture("/public/user_resources/pictures/profile_pictures/606fc");
+
+            /*List<String> phonebook = new ArrayList<>();
+            phonebook.add("+21094724348");
+            phonebook.add("6785");
+            newUser.setPhonebook(phonebook);*/
+
+            List<String> labels = new ArrayList<>();
+            labels.add("cafe");
+            labels.add("lodging");
+            labels.add("shopping");
+            newUser.setLabels(labels);
+
             System.out.println("new User:\t" + newUser);
 
             users.insertOne(newUser);
 
             // find this user.
-            User user = users.find(eq("email", "in.seo@gmai.com")).first();
+            User user = users.find(eq("email", "in.seo@gmail.com")).first();
             System.out.println("User found:\t" + user);
 
             // update this user: adding an phonebook

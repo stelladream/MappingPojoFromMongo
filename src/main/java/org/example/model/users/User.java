@@ -1,6 +1,7 @@
 package org.example.model.users;
 
 import lombok.Data;
+import org.bson.codecs.pojo.annotations.BsonProperty;
 import org.bson.types.ObjectId;
 
 import java.util.Date;
@@ -36,22 +37,29 @@ public class User {
     private List<IncomingTenantListing> incoming_tenant_listing;
     private List<IncomingLandlordListing> incoming_landlord_listing;
 
-    //---- next
+
     private String salt;
     private String hash;
-    private int __v;
+    @BsonProperty(value="__v")
+    private int version;
     private String profile_picture;
+
+
+    private List<String> phonebook;
+    private List<String> labels;
+
+    //---- next
+    private ResetPassword resetPasswordExpires;
+    private String resetPasswordToken;
 
     private String expoPushToken;
     private List<String> events;
     private Places places;
     private List<IncomingEvent> incoming_events;
-    private List<String> phonebook;
+
     private String signupType;
-    private ResetPassword resetPasswordExpires;
-    private String resetPasswordToken;
+
     private LastReportedLocation lastReportedLocation;
-    private List<String> labels;
 
 
 
