@@ -48,45 +48,16 @@ public class User {
     private List<String> phonebook;
     private List<String> labels;
 
-    //---- next
-    private ResetPassword resetPasswordExpires;
+    private Date resetPasswordExpires;
     private String resetPasswordToken;
 
     private String expoPushToken;
-    private List<String> events;
-    private Places places;
-    private List<IncomingEvent> incoming_events;
-
+    private Coordinate lastReportedLocation;
     private String signupType;
 
-    private LastReportedLocation lastReportedLocation;
+    //---- next
+    private List<IncomingEvent> incoming_events;
+    private List<ObjectId> events;
+    private Place places;
 
-
-
-    private static class Places {
-        private List<String> restaurant;
-    }
-
-    private static class IncomingEvent {
-        private String status;
-        private String _id;
-        private String id;
-        private ReceivedDate received_date;
-
-        private static class ReceivedDate {
-            private String $date;
-
-        }
-    }
-
-    private static class ResetPassword {
-        private String $date;
-
-    }
-
-    private static class LastReportedLocation {
-        private double lat;
-        private double lng;
-
-    }
 }

@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.List;
 
 import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.in;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
@@ -117,10 +118,10 @@ public class MappingPOJO {
             newUser.get_3rdparty_listing().add(new ObjectId());
             newUser.get_3rdparty_listing().add(new ObjectId());
 
-
             // _id, id가 왜 두개인가?
             ReferringFriend referringFriend = new ReferringFriend();
             referringFriend.setId(new ObjectId());
+            referringFriend.setEid(new ObjectId());
             referringFriend.setUsername("namyun");
             referringFriend.setProfile_picture("path");
             referringFriend.setFriend_id(new ObjectId());
@@ -169,6 +170,48 @@ public class MappingPOJO {
             labels.add("lodging");
             labels.add("shopping");
             newUser.setLabels(labels);
+
+            newUser.setResetPasswordExpires(new Date());
+            newUser.setResetPasswordToken("8dac6bbf093fb1aeb1c9c55645e50db6d1224fb7");
+
+            newUser.setExpoPushToken("ExponentPushToken[_exMLMLRiP1PlryY4Zw-T-]");
+            newUser.setLastReportedLocation(coordinate);
+            newUser.setSignupType("local");
+
+            //incoming_events
+            IncomingEvent incoming_event1 = new IncomingEvent()  ;
+            incoming_event1.setId("60e0e6d13fa7e90017ac8a16");
+            incoming_event1.setEid("60e0e6d13fa7e90017ac8a15");
+            incoming_event1.setReceived_date(new Date());
+            incoming_event1.setStatus("New");
+
+            IncomingEvent incoming_event2 = new IncomingEvent()  ;
+            incoming_event2.setId("60e518979d19a800178fb5d5");
+            incoming_event2.setEid("60e518979d19a800178fb5d4");
+            incoming_event2.setReceived_date(new Date());
+            incoming_event2.setStatus("Old");
+
+            List<IncomingEvent> incoming_events = new ArrayList<>();
+            incoming_events.add(incoming_event1);
+            incoming_events.add(incoming_event2);
+            newUser.setIncoming_events(incoming_events);
+
+            //events
+            List<ObjectId> events = new ArrayList<>();
+            events.add(new ObjectId());
+            events.add(new ObjectId());
+            newUser.setEvents(events);
+
+
+            //place
+            List<ObjectId> rests = new ArrayList<>();
+            rests.add(new ObjectId());
+            rests.add(new ObjectId());
+            rests.add(new ObjectId());
+
+            Place place = new Place();
+            place.setRestaurant(rests);
+            newUser.setPlaces(place);
 
             System.out.println("new User:\t" + newUser);
 
